@@ -36,15 +36,8 @@ class ExampleUnitTest {
 
     @Test
     fun `test data handler deals with bad response`() {
-        val slot = slot<Response.Listener<String>>()
-        every {
-            queue.add(StringRequest(Request.Method.GET, any(), capture(slot), any()))
-        } answers {
-            request
-            slot.captured.onResponse()
-        }
-        presenter = MainActivityPresenter(view, DataHandler(queue))
         presenter.start()
+        verify(exactly = 0) { presenter.onResponse(any()) }
     }
 
     @Test

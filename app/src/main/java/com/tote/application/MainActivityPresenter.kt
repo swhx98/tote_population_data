@@ -1,6 +1,8 @@
 package com.tote.application
 
 import com.android.volley.Response
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class MainActivityPresenter(
     private val view: MainActivityContract.View,

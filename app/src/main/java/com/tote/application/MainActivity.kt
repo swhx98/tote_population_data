@@ -9,11 +9,6 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 
-//import com.androidnetworking.AndroidNetworking
-//import com.androidnetworking.error.ANError
-//import com.androidnetworking.interfaces.JSONArrayRequestListener
-
-
 class MainActivity : AppCompatActivity(), MainActivityContract.View {
 
     private lateinit var recyclerView: RecyclerView

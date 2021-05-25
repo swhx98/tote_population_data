@@ -3,12 +3,6 @@ package com.tote.application
 import org.json.JSONObject
 
 class ToteDataPojo {
-    private val ID_NATION = "ID Nation"
-    private val NATION = "Nation"
-    private val ID_YEAR = "ID Year"
-    private val YEAR = "Year"
-    private val POPULATION = "Population"
-    private val SLUG_NATION = "Slug Nation"
 
     private var idNation: String? = null
     private var nation: String? = null
@@ -31,4 +25,13 @@ class ToteDataPojo {
     fun getYear() = year ?: "empty year"
 
     fun getPopulation() = population ?: "empty population"
+
+    companion object {
+        const val ID_NATION = "ID Nation"
+        const val NATION = "Nation"
+        const val ID_YEAR = "ID Year"
+        const val YEAR = "Year"
+        const val POPULATION = "Population"
+        const val SLUG_NATION = "Slug Nation"
+    }
 }

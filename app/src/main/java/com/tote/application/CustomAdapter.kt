@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.text.DecimalFormat
 
 class CustomAdapter(private val dataSet: ArrayList<ToteDataPojo>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
@@ -33,10 +34,20 @@ class CustomAdapter(private val dataSet: ArrayList<ToteDataPojo>) :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.tvYearNumber.text = dataSet[position].getYear()
-        viewHolder.tvPopulationNumber.text = dataSet[position].getPopulation()
+        viewHolder.tvPopulationNumber.text =
+            formatPopulationNumber(dataSet[position].getPopulation())
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
+
+    fun formatPopulationNumber(number: String): String {
+        try {
+            val decimal = DecimalFormat("###,###")
+            return decimal.format(number.toBigDecimal())
+        } catch (exception: Exception){
+            return number
+        }
+    }
 
 }

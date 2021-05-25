@@ -4,11 +4,14 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
+import org.json.JSONException
 import org.json.JSONObject
 import java.util.ArrayList
 
-class DataHandler(private val queue: RequestQueue,
-                  private val list: ArrayList<ToteDataPojo> = ArrayList()) {
+class DataHandler(
+    private val queue: RequestQueue,
+    private val list: ArrayList<ToteDataPojo> = ArrayList()
+) {
 
     private lateinit var response: JSONObject
 
@@ -21,10 +24,12 @@ class DataHandler(private val queue: RequestQueue,
             callback.onResponse(it)
         }
         queue.add(
-            StringRequest(Request.Method.GET, URL, dataHandlerListener,{ }))
+            StringRequest(Request.Method.GET, URL, dataHandlerListener, { })
+        )
     }
 
     private fun populateListWithResponseData() {
+
         val data = response.getJSONArray(DATA)
         for (i in 0 until data.length()) {
             val toteDataPojo = ToteDataPojo()
@@ -34,8 +39,22 @@ class DataHandler(private val queue: RequestQueue,
     }
 
     private fun setDataHandlerFields(response: String) {
-        this.response = JSONObject(response)
-        populateListWithResponseData()
+        try {
+            this.response = JSONObject(response)
+            populateListWithResponseData()
+        } catch(jsonException: JSONException){
+            jsonErrorScenario()
+        }
+    }
+
+    private fun jsonErrorScenario() {
+        val errorPojo = ToteDataPojo()
+        val errorObject = JSONObject()
+        errorObject.put(ToteDataPojo.NATION, "json error")
+        errorObject.put(ToteDataPojo.YEAR, "error")
+        errorObject.put(ToteDataPojo.POPULATION, "error")
+        errorPojo.parseJsonObject(errorObject)
+        list.add(errorPojo)
     }
 
     private companion object {
