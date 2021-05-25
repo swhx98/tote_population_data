@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Tote App</string>
+    <string name="population">Population</string>
+    <string name="year">Year</string>
+</resources>
