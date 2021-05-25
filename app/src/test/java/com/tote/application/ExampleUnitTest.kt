@@ -26,6 +26,8 @@ class ExampleUnitTest {
     @MockK
     private lateinit var toteDataPojo: ToteDataPojo
 
+    private var slot = slot<Response.Listener<String>>()
+
     private lateinit var presenter: MainActivityPresenter
 
     @Before
@@ -35,17 +37,10 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun `test data handler deals with bad response`() {
-        presenter.start()
-        verify(exactly = 0) { presenter.onResponse(any()) }
-    }
-
-    @Test
     fun `test set adapter and set title are called on view on start`() {
         every { dataHandler.getList() } returns list
         every { list[any()] } returns toteDataPojo
         every { toteDataPojo.getNation() } returns NATION
-        val slot = slot<Response.Listener<String>>()
         every { dataHandler.makeCallToApi(capture(slot)) } answers {
             slot.captured.onResponse(CALLBACK)
         }
